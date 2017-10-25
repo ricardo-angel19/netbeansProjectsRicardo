@@ -5,9 +5,11 @@
  */
 package testobjectoutputstream;
 
+import java.io.FileInputStream;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.Date;
 import java.util.logging.Level;
@@ -41,6 +43,21 @@ public class TestObjectOutputStream {
             JOptionPane.showMessageDialog(null, "there is an error of IO " + ex.getMessage());
         }
         
+        try {
+            ObjectInputStream input = new ObjectInputStream(new FileInputStream("Object.dat"));
+            
+            String name = input.readUTF();
+            double weight = input.readDouble();
+            Date date =(Date)input.readObject();
+            
+            System.out.println("name" + name + "peso" + weight + "date" + date);
+        } catch (FileNotFoundException ex) {
+            JOptionPane.showMessageDialog(null, "ther is an error of NOTFOUND " + ex.getMessage());
+        } catch (IOException ex) {
+            JOptionPane.showMessageDialog(null, "there is an error of IO " + ex.getMessage());
+        } catch (ClassNotFoundException ex) {
+            Logger.getLogger(TestObjectOutputStream.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
